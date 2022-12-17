@@ -64,7 +64,7 @@
                                VerticalAlignment="Center">
                         <Hyperlink Foreground="Transparent"
                                    Command="{Binding OpenUrl}"
-                                   CommandParameter="https://github.com/SQuazar">
+                                   CommandParameter="https://github.com/SQuazar/P2_Reporting">
                             <fa:FontAwesome Icon="Github" FontSize="48" Foreground="White" />
                         </Hyperlink>
                     </TextBlock>
