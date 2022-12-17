@@ -5,12 +5,14 @@ using Domain.Models;
 using Domain.Services;
 using HandyControl.Controls;
 using HandyControl.Data;
+using WPF.Attributes;
 using WPF.Commands;
 using WPF.State.Authenticators;
 
 namespace WPF.ViewModels;
 
-public partial class ReportsViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.Accountant)]
+public partial class ReportsViewModel : ViewModelBase
 {
     [ObservableProperty] private ObservableCollection<Report> _reports = new();
 
@@ -44,9 +46,7 @@ public partial class ReportsViewModel : ViewModelBase, IAccessibleViewModel
     private readonly IAuthenticator _authenticator;
 
     #endregion
-
-    public int AccessLevel => 1;
-
+    
     #region Commands
 
     public ICommand LoadReports => new AsyncRelayCommand<int>(async page =>

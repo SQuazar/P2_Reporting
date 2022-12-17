@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Domain.Models;
+using WPF.Attributes;
 
 namespace WPF.ViewModels;
 
-public class ReportingDocumentationViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.Accountant)]
+public class ReportingDocumentationViewModel : ViewModelBase
 {
-    public int AccessLevel => Convert.ToInt32(Domain.Models.AccessLevel.Accountant);
 }

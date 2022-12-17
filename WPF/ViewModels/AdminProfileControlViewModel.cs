@@ -9,15 +9,15 @@ using Domain.Models;
 using Domain.Services;
 using HandyControl.Controls;
 using HandyControl.Data;
+using WPF.Attributes;
 using WPF.Commands;
 
 namespace WPF.ViewModels;
 
-public partial class AdminProfileControlViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.Admin)]
+public partial class AdminProfileControlViewModel : ViewModelBase
 {
     [ObservableProperty] private Account? _account;
-
-    public int AccessLevel => Convert.ToInt32(Domain.Models.AccessLevel.Admin);
 
     #region Services
 
@@ -38,12 +38,17 @@ public partial class AdminProfileControlViewModel : ViewModelBase, IAccessibleVi
         {
             if (roles == null) throw new Exception();
             var enumerable = roles as Role[] ?? roles.ToArray();
-            var removedRoles = _account!.Roles.Where(r => !enumerable.Contains(r)).Select(r => r.Id);
-            var addedRoles = enumerable.Where(r => !_account.Roles.Contains(r)).Select(r => r.Id);
+            var removedRoles = _account!.Roles.Where(r => !enumerable.Contains(r)).Select(r => r.Id)
+                .ToArray();
+            var addedRoles = enumerable.Where(r => !_account.Roles.Contains(r)).Select(r => r.Id)
+                .ToArray();
 
-            await _accountRoleService.RemoveRoles(_account, removedRoles);
-            var updated = await _accountRoleService.AddRoles(_account, addedRoles);
-            _account.Roles = updated.Roles;
+            var updated = Account;
+            if (removedRoles.Length > 0)
+                updated = await _accountRoleService.RemoveRoles(_account, removedRoles);
+            if (addedRoles.Length > 0)
+                updated = await _accountRoleService.AddRoles(_account, addedRoles);
+            _account.Roles = updated!.Roles;
             AccountRoles = new ObservableCollection<Role>(_account.Roles);
             AccountRoles.CollectionChanged += AccountRolesCollectionChanged;
             InitRoles.Execute(null);
@@ -55,7 +60,7 @@ public partial class AdminProfileControlViewModel : ViewModelBase, IAccessibleVi
                 WaitTime = 4,
                 Token = "GrowlMsg"
             });
-        }, roles => roles != null && roles.Any() && 
+        }, roles => roles != null && roles.Any() &&
                     _account != null && !Equals(_account, Account.Empty));
 
     public ICommand AddRole => new RelayCommand<Role>(role =>

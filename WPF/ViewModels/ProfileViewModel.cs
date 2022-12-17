@@ -5,12 +5,14 @@ using Domain.Services;
 using HandyControl.Controls;
 using HandyControl.Data;
 using Microsoft.AspNet.Identity;
+using WPF.Attributes;
 using WPF.Commands;
 using WPF.State.Authenticators;
 
 namespace WPF.ViewModels;
 
-public partial class ProfileViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.User)]
+public partial class ProfileViewModel : ViewModelBase
 {
     private readonly IAuthenticator _authenticator;
 
@@ -22,8 +24,6 @@ public partial class ProfileViewModel : ViewModelBase, IAccessibleViewModel
     private readonly IPasswordHasher _passwordHasher;
 
     #endregion
-
-    public int AccessLevel => 0;
 
     #region Account data
 
@@ -46,7 +46,7 @@ public partial class ProfileViewModel : ViewModelBase, IAccessibleViewModel
         {
             var model = new AdminProfileControlViewModel(_account, _roleService, _accountRoleService);
             var current = _authenticator.CurrentAccount ?? Account.Empty;
-            model = current.AccessLevel < model.AccessLevel ? null : model;
+            model = CanAccess(typeof(AdminProfileControlViewModel), current) ? null : model;
             if (model != null)
                 model.RolesUpdated += () =>
                 {

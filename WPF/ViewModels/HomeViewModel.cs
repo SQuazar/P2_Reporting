@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -8,13 +7,15 @@ using Domain.Models;
 using Domain.Services;
 using HandyControl.Controls;
 using HandyControl.Data;
+using WPF.Attributes;
 using WPF.Commands;
 using WPF.Controls;
 using WPF.State.Authenticators;
 
 namespace WPF.ViewModels;
 
-public partial class HomeViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.User)]
+public partial class HomeViewModel : ViewModelBase
 {
     private readonly IAuthenticator _authenticator;
     private readonly IReportService _reportService;
@@ -24,8 +25,7 @@ public partial class HomeViewModel : ViewModelBase, IAccessibleViewModel
     [ObservableProperty] private Report? _selectedReport;
     [ObservableProperty] private string? _reportTitle;
     [ObservableProperty] private string? _reportDescription;
-
-    public int AccessLevel => Convert.ToInt32(Domain.Models.AccessLevel.User);
+    
     public int UserTotalReports { get; private set; }
     public int UserSentReports { get; private set; }
     public int UserInProgressReports { get; private set; }

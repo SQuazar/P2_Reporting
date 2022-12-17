@@ -1,19 +1,18 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models;
 using Domain.Services;
 using Microsoft.AspNet.Identity;
+using WPF.Attributes;
 using WPF.Commands;
 using WPF.State.Authenticators;
 
 namespace WPF.ViewModels;
 
-public partial class AccountsViewModel : ViewModelBase, IAccessibleViewModel
+[ProtectedViewModel(AccessLevel.Admin)]
+public partial class AccountsViewModel : ViewModelBase
 {
-    public int AccessLevel => 2;
-
     #region Services
 
     private readonly IAccountService _accountService;
@@ -39,7 +38,7 @@ public partial class AccountsViewModel : ViewModelBase, IAccessibleViewModel
 
     #region Commands
 
-    public ICommand LoadAccounts => new AsyncRelayCommand(async _ =>
+    private ICommand LoadAccounts => new AsyncRelayCommand(async _ =>
     {
         var accounts = await _accountService.GetAll();
         Accounts = new ObservableCollection<Account>(accounts);
@@ -57,6 +56,7 @@ public partial class AccountsViewModel : ViewModelBase, IAccessibleViewModel
         _roleService = roleService;
         _accountRoleService = accountRoleService;
         _passwordHasher = passwordHasher;
-        LoadAccounts.Execute(null);
+        if (authenticator.CurrentAccount != null)
+            LoadAccounts.Execute(null);
     }
 }
