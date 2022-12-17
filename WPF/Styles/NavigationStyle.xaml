@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:WPF.Controls"
+                    xmlns:fa="http://schemas.fontawesome.io/icons/">
+    <Style TargetType="TextBlock" x:Key="NavbarTitle">
+        <Setter Property="FontSize" Value="24"/>
+    </Style>
+    <Style TargetType="controls:IconRadioButton" BasedOn="{StaticResource {x:Type controls:IconRadioButton}}">
+        <Style.Setters>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Background" Value="#33334c"/>
+            <Setter Property="Foreground" Value="#d0c0ff"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#3f51b5"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3f51b5"/>
+                <Setter Property="Foreground" Value="#ffffff"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

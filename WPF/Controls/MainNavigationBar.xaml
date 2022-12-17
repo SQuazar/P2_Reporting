@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="WPF.Controls.MainNavigationBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WPF.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:viewModels="clr-namespace:WPF.ViewModels"
+             xmlns:factories="clr-namespace:WPF.ViewModels.Factories"
+             mc:Ignorable="d"
+             d:DesignHeight="800" d:DesignWidth="200"
+             d:DataContext="{d:DesignInstance viewModels:MainViewModel, IsDesignTimeCreatable=True}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/NavigationStyle.xaml"  />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="#33334C">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+            <StackPanel Background="#262638">
+                <TextBlock Padding="15"
+                           Text="Учёт заявок" Foreground="#ffffff"
+                           HorizontalAlignment="Center"
+                           Style="{StaticResource NavbarTitle}" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" TextBlock.FontSize="18">
+                <local:IconRadioButton Content="Главная" Icon="Home" IsChecked="True"
+                                       Visibility="{Binding HomeButtonVisibility}"
+                                       Command="{Binding ChangeViewModelCommand}"
+                                       CommandParameter="{x:Static factories:MainViewModelFactory+Type.Home}" />
+                <local:IconRadioButton Content="Заявки" Icon="AlignJustify"
+                                       Visibility="{Binding ReportsButtonVisibility}"
+                                       Command="{Binding ChangeViewModelCommand}"
+                                       CommandParameter="{x:Static factories:MainViewModelFactory+Type.Reports}" />
+                <local:IconRadioButton Content="Профиль" Icon="User"
+                                       Visibility="{Binding ProfileButtonVisibility}"
+                                       Command="{Binding ChangeViewModelCommand}"
+                                       CommandParameter="{x:Static factories:MainViewModelFactory+Type.Profile}" />
+                <local:IconRadioButton Content="Пользователи" Icon="Users"
+                                       Visibility="{Binding AccountsButtonVisibility}"
+                                       Command="{Binding ChangeViewModelCommand}"
+                                       CommandParameter="{x:Static factories:MainViewModelFactory+Type.Accounts}" />
+                <!-- <local:IconRadioButton Content="Отчёт" Icon="FileTextOutline" -->
+                <!--                        Visibility="{Binding ReportDocumentsButtonVisibility}" -->
+                <!--                        Command="{Binding ChangeViewModelCommand}" -->
+                <!--                        CommandParameter="{x:Static factories:MainViewModelFactory+Type.Documentation}" /> -->
+            </StackPanel>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Margin="10 0 10 20"
+                   FontSize="18"
+                   HorizontalAlignment="Center">
+            <Hyperlink Foreground="Gray" Command="{Binding Logout}">
+                <fa:FontAwesome Icon="UserTimes" />
+                <Run Text="Выйти" />
+            </Hyperlink>
+        </TextBlock>
+    </Grid>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="WPF.Controls.AdminProfileControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:viewModels="clr-namespace:WPF.ViewModels"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance viewModels:AdminProfileControlViewModel, IsDesignTimeCreatable=True}">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <hc:TagContainer ItemsSource="{Binding AccountRoles}"
+                             Style="{StaticResource TagContainerBaseStyle}"
+                             ItemContainerStyle="{StaticResource TagBaseStyle}">
+            </hc:TagContainer>
+            <Grid Margin="0 10 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <hc:ComboBox Grid.Column="0" x:Name="RoleComboBox"
+                             ItemsSource="{Binding Roles, Mode=OneWay}"
+                             hc:InfoElement.Placeholder="Выберите роль для добавления" />
+                <Button Grid.Column="1" Margin="5 0 0 0"
+                        Content="Добавить" Style="{StaticResource ButtonPrimary}"
+                        Command="{Binding AddRole}"
+                        Width="150"
+                        CommandParameter="{Binding ElementName=RoleComboBox, Path=SelectedItem}"/>
+            </Grid>
+            <Button Margin="0 10 0 0"
+                    Style="{StaticResource ButtonCustom}"
+                    Height="35" FontSize="16" hc:BorderElement.CornerRadius="4"
+                    Background="#24292e" Foreground="White"
+                    hc:BackgroundSwitchElement.MouseHoverBackground="#2e353b"
+                    hc:BackgroundSwitchElement.MouseDownBackground="#485057"
+                    Content="Сохранить"
+                    Command="{Binding SaveRoles}"
+                    CommandParameter="{Binding AccountRoles}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

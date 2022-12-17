@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{7ED3C1C8-0F9B-4D45-A6D1-13E26BF10C07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFramework", "EntityFramework\EntityFramework.csproj", "{AB90AE53-C6A3-42CD-B85F-B8794B63BDE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF", "WPF\WPF.csproj", "{217D3E13-0573-4298-8260-335405333405}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7ED3C1C8-0F9B-4D45-A6D1-13E26BF10C07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED3C1C8-0F9B-4D45-A6D1-13E26BF10C07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED3C1C8-0F9B-4D45-A6D1-13E26BF10C07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED3C1C8-0F9B-4D45-A6D1-13E26BF10C07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB90AE53-C6A3-42CD-B85F-B8794B63BDE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB90AE53-C6A3-42CD-B85F-B8794B63BDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB90AE53-C6A3-42CD-B85F-B8794B63BDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB90AE53-C6A3-42CD-B85F-B8794B63BDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{217D3E13-0573-4298-8260-335405333405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217D3E13-0573-4298-8260-335405333405}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217D3E13-0573-4298-8260-335405333405}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217D3E13-0573-4298-8260-335405333405}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

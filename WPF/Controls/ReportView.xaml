@@ -1,0 +1,72 @@
+﻿<hc:Window x:Class="WPF.Controls.ReportView"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+           xmlns:hc="https://handyorg.github.io/handycontrol"
+           xmlns:viewModels="clr-namespace:WPF.ViewModels"
+           mc:Ignorable="d"
+           WindowStartupLocation="CenterScreen"
+           Title="Информация о заявке" ResizeMode="NoResize"
+           Height="500" Width="500"
+           d:DataContext="{d:DesignInstance viewModels:ReportWindowViewModel, IsDesignTimeCreatable=True}">
+    <Grid Margin="10 10 10 10">
+        <StackPanel Orientation="Vertical">
+            <TextBlock FontSize="20">
+                <Run Text="Информация о заявке" />
+                <Run Text="#" /><Run Text="1" />
+            </TextBlock>
+            <StackPanel Margin="0 10 0 0" TextBlock.FontSize="14">
+                <TextBlock>
+                    <Run Text="Отправитель:" />
+                    <Run Text="{Binding Sender, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Margin="0 5 0 0">
+                    <Run Text="Тема заявки:" />
+                    <Run Text="{Binding Title, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Margin="0 5 0 0">
+                    <Run Text="Статус заявки:" />
+                    <Run Text="{Binding Status, Mode=OneWay}" />
+                </TextBlock>
+                <TextBlock Margin="0 5 0 0">
+                    <Run Text="Дата отправления:" />
+                    <Run Text="{Binding DateTime, ConverterCulture=ru-RU, Mode=OneWay}" />
+                </TextBlock>
+                <StackPanel Margin="0 5 0 0"
+                            Visibility="{Binding ElementName=DescriptionText, Path=Text, Converter={StaticResource ReversedNullToVisibilityConverter}}">
+                    <TextBlock Text="Описание проблемы:" />
+                    <RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                                 BorderThickness="0" Background="Transparent">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Run x:Name="DescriptionText"
+                                     Text="{Binding Description, Mode=OneWay}" />
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </StackPanel>
+                <StackPanel Margin="0 5 0 0"
+                            Visibility="{Binding ElementName=AgentComment, Path=Text, Converter={StaticResource ReversedNullToVisibilityConverter}}">
+                    <TextBlock Text="Ответ агента техподдержки:" />
+                    <RichTextBox IsReadOnly="True" VerticalScrollBarVisibility="Auto"
+                                 BorderThickness="0" Background="Transparent">
+                        <FlowDocument>
+                            <Paragraph>
+                                <Run x:Name="AgentComment"
+                                     Text="{Binding AgentComment, Mode=OneWay}" />
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </StackPanel>
+                <!-- <StackPanel Margin="0 5 0 0"> -->
+                <!--     <RichTextBox> -->
+                <!--         <FlowDocument> -->
+                <!-- -->
+                <!--         </FlowDocument> -->
+                <!--     </RichTextBox> -->
+                <!-- </StackPanel> -->
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</hc:Window>

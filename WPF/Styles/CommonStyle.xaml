@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="TextBox">
+        <Style.Setters>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Control">
+                        <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    <Style TargetType="PasswordBox">
+        <Style.Setters>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Control">
+                        <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="3">
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    <Style TargetType="Button" x:Key="Btn">
+        <Style.Setters>
+            <Setter Property="Background" Value="#212529" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4"
+                                Padding="8">
+                            <ContentPresenter Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="Center"
+                                              TextBlock.Foreground="White"
+                                              TextBlock.FontSize="{TemplateBinding FontSize}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#575d63" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- <Style TargetType="DataGrid"> -->
+    <!--     <Style.Setters> -->
+    <!--         <Setter Property="ColumnHeaderStyle"> -->
+    <!--             <Setter.Value> -->
+    <!--                 <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}"> -->
+    <!--                     <Setter Property="HorizontalContentAlignment" Value="Center" /> -->
+    <!--                     <Setter Property="Background" Value="#212529" /> -->
+    <!--                     <Setter Property="Padding" Value="5" /> -->
+    <!--                     <Setter Property="Foreground" Value="White" /> -->
+    <!--                 </Style> -->
+    <!--             </Setter.Value> -->
+    <!--         </Setter> -->
+    <!--         <Setter Property="RowStyle"> -->
+    <!--             <Setter.Value> -->
+    <!--                 <Style TargetType="DataGridRow"> -->
+    <!--                     <Setter Property="Padding" Value="5"/> -->
+    <!--                 </Style> -->
+    <!--             </Setter.Value> -->
+    <!--         </Setter> -->
+    <!--         <Setter Property="BorderThickness" Value="0" /> -->
+    <!--     </Style.Setters> -->
+    <!-- </Style> -->
+</ResourceDictionary>

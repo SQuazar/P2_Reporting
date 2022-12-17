@@ -1,0 +1,82 @@
+﻿<Window x:Class="WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:WPF.ViewModels"
+        xmlns:controls="clr-namespace:WPF.Controls"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Учёт заявок" MinHeight="900" MinWidth="1400"
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel, IsDesignTimeCreatable=True}">
+    <Grid Background="#efefef">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Column="0">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <ContentControl Content="{Binding MainNavigationBar}" Width="200" />
+        </Grid>
+        <Grid Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="62" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="#262638">
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsLoggedIn}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <StackPanel Margin="0 0 20 0"
+                            Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <TextBlock VerticalAlignment="Center">
+                        <Hyperlink Foreground="Transparent"
+                                   Command="{Binding OpenUrl}"
+                                   CommandParameter="https://vk.com/thequazar">
+                            <fa:FontAwesome Icon="Vk" FontSize="48" Foreground="White"/>
+                        </Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="20 0 0 0"
+                        VerticalAlignment="Center">
+                        <Hyperlink Foreground="Transparent"
+                                   Command="{Binding OpenUrl}"
+                                   CommandParameter="https://t.me/squazar">
+                            <fa:FontAwesome Icon="Telegram" FontSize="41" Foreground="White" />
+                        </Hyperlink>
+                    </TextBlock>
+                    <TextBlock Margin="20 0 0 0"
+                               VerticalAlignment="Center">
+                        <Hyperlink Foreground="Transparent"
+                                   Command="{Binding OpenUrl}"
+                                   CommandParameter="https://github.com/SQuazar">
+                            <fa:FontAwesome Icon="Github" FontSize="48" Foreground="White" />
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+            <ContentControl Grid.Row="1" Margin="20 10 20 20"
+                            Content="{Binding CurrentViewModel}" />
+        </Grid>
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right"
+                      VerticalAlignment="Top">
+            <StackPanel hc:Growl.Token="GrowlMsg" hc:Growl.GrowlParent="True" VerticalAlignment="Top"
+                        Margin="0,10,10,10" />
+        </ScrollViewer>
+    </Grid>
+</Window>
