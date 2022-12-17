@@ -46,7 +46,7 @@ public partial class ProfileViewModel : ViewModelBase
         {
             var model = new AdminProfileControlViewModel(_account, _roleService, _accountRoleService);
             var current = _authenticator.CurrentAccount ?? Account.Empty;
-            model = CanAccess(typeof(AdminProfileControlViewModel), current) ? null : model;
+            model = CanAccess(typeof(AdminProfileControlViewModel), current) ? model : null;
             if (model != null)
                 model.RolesUpdated += () =>
                 {
