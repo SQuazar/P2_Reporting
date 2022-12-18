@@ -65,9 +65,8 @@ public partial class HomeViewModel : ViewModelBase
     private ICommand LoadReports => new AsyncRelayCommand(async _ =>
     {
         if (_authenticator.CurrentAccount == null) return;
-        var reports = await _reportService.GetAll();
-        var list = (reports as List<Report>)!.Where(r => r.SenderId == _authenticator.CurrentAccount!.Id)
-            .ToList();
+        var reports = await _reportService.GetAllBySender(_authenticator.CurrentAccount);
+        var list = reports.ToList();
         list.Sort((r1, r2) => r2.ReportDate.CompareTo(r1.ReportDate));
         Reports = new ObservableCollection<Report>(list);
         UserTotalReports = Reports.Count;
