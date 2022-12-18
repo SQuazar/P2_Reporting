@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Domain.Exceptions;
+using HandyControl.Controls;
 using WPF.State.Authenticators;
 using WPF.State.Navigators;
 using WPF.ViewModels;
@@ -28,6 +29,7 @@ public class LoginAsyncCommand : AsyncCommandBase
         try
         {
             await _authenticator.Login(_loginViewModel.Username!, _loginViewModel.Password!);
+            Growl.Success("Успешный вход", "GrowlMsg");
             _loginViewModel.ErrorText = null;
             new ChangeViewModelCommand(_navigator, _viewModelFactory, _authenticator)
                 .Execute(MainViewModelFactory.Type.Home);
