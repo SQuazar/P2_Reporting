@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using EntityFramework;
 using HandyControl.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using WPF.HostBuilders;
 
 namespace WPF
@@ -22,6 +24,7 @@ namespace WPF
         static IHostBuilder CreateHostBuilder(string[]? args = null)
         {
             return Host.CreateDefaultBuilder(args)
+                .AddLogging()
                 .AddConfiguration()
                 .AddSecurity()
                 .AddDbContext()
@@ -33,12 +36,21 @@ namespace WPF
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                if (args.ExceptionObject is Exception exception)
+                {
+                    Log.Error(exception, "Program threw an exception");
+                }
+            };
+            
             await _host.StartAsync();
+
             var dbContextFactory = _host.Services.GetRequiredService<ReportingDbContextFactory>();
             await using var dbContext = dbContextFactory.CreateDbContext();
 
             ConfigHelper.Instance.SetLang("ru");
-            
+
             var window = _host.Services.GetRequiredService<MainWindow>();
             window.Show();
             base.OnStartup(e);

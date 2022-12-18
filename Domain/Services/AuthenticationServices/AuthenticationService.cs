@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain.Exceptions;
 using Domain.Models;
 using Microsoft.AspNet.Identity;
+using Serilog;
 
 namespace Domain.Services.AuthenticationServices;
 
@@ -37,6 +38,7 @@ public class AuthenticationService : IAuthenticationService
             Roles = new List<Role> { new() { Id = 1 } }
         };
         await _accountService.Create(account);
+        Log.Debug("Account ({@username}) is successful registered", username);
         return IAuthenticationService.RegistrationResult.Success;
     }
 
@@ -48,6 +50,7 @@ public class AuthenticationService : IAuthenticationService
         var passwordResult = _passwordHasher.VerifyHashedPassword(find.PasswordHash, password);
         if (passwordResult != PasswordVerificationResult.Success)
             throw new InvalidPasswordException(username, password);
+        Log.Debug("Successful login ({@username})", username);
         return find;
     }
 }
