@@ -3,12 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:WPF.Views"
              xmlns:viewModels="clr-namespace:WPF.ViewModels"
-             xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
              xmlns:behaviors="clr-namespace:WPF.Behaviors"
-             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:factories="clr-namespace:WPF.ViewModels.Factories"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="600"
              d:DataContext="{d:DesignInstance Type=viewModels:LoginViewModel, d:IsDesignTimeCreatable=True}">
@@ -53,10 +51,10 @@
                     <PasswordBox Margin="0 -2 0 0"
                                  FontSize="24"
                                  Style="{StaticResource LoginPageTextBox}">
-                        <i:Interaction.Behaviors>
+                        <b:Interaction.Behaviors>
                             <behaviors:PasswordBoxBehavior Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                            x:Name="PasswordBox" />
-                        </i:Interaction.Behaviors>
+                        </b:Interaction.Behaviors>
                     </PasswordBox>
                 </Grid>
             </StackPanel>
