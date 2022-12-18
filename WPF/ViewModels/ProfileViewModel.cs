@@ -40,23 +40,27 @@ public partial class ProfileViewModel : ViewModelBase
 
     #region AdminControl
 
+    private AdminProfileControlViewModel? _adminViewModel;
+
     public AdminProfileControlViewModel? AdminViewModel
     {
         get
         {
-            var model = new AdminProfileControlViewModel(_account, _roleService, _accountRoleService);
+            _adminViewModel= new AdminProfileControlViewModel(_account, _roleService, _accountRoleService);
             var current = _authenticator.CurrentAccount ?? Account.Empty;
-            model = CanAccess(typeof(AdminProfileControlViewModel), current) ? model : null;
-            if (model != null)
-                model.RolesUpdated += () =>
-                {
-                    OnPropertyChanged(nameof(Account));
-                    if (Account.Equals(_authenticator.CurrentAccount))
-                        _authenticator.CurrentAccount = Account;
-                    OnPropertyChanged();
-                };
-            return model;
+            _adminViewModel = CanAccess(typeof(AdminProfileControlViewModel), current) ? _adminViewModel : null;
+            if (_adminViewModel != null)
+                _adminViewModel.RolesUpdated += RolesUpdated;
+            return _adminViewModel;
         }
+    }
+
+    private void RolesUpdated()
+    {
+        OnPropertyChanged(nameof(Account));
+        if (Account.Equals(_authenticator.CurrentAccount))
+            _authenticator.CurrentAccount = Account;
+        OnPropertyChanged();
     }
 
     #endregion
@@ -124,5 +128,13 @@ public partial class ProfileViewModel : ViewModelBase
 
         _roleService = roleService;
         _accountRoleService = accountRoleService;
+    }
+
+    public override void Dispose()
+    {
+        if (_adminViewModel != null)
+        {
+            _adminViewModel.RolesUpdated -= RolesUpdated;
+        }
     }
 }
