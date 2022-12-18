@@ -7,6 +7,7 @@
         <UseWPF>true</UseWPF>
         <LangVersion>11</LangVersion>
         <ApplicationIcon>call-report-icon-3.ico</ApplicationIcon>
+        <AssemblyName>P2_Reporting</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>
