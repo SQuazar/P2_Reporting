@@ -10,6 +10,8 @@ namespace Domain.Models;
 [Table("account")]
 public partial class Account : DomainObject
 {
+    #region StaticMembers
+
     public static readonly Account Empty = new()
     {
         Username = "",
@@ -18,6 +20,8 @@ public partial class Account : DomainObject
         PasswordHash = "",
         Roles = new List<Role>()
     };
+
+    #endregion
 
     [ObservableProperty] [NotifyPropertyChangedFor(nameof(FullName))]
     private string _username = null!;
@@ -40,12 +44,15 @@ public partial class Account : DomainObject
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TotalReports), nameof(SentReports), nameof(InProgressReports))]
     private List<Report> _reports = null!;
-    
+
     [ObservableProperty] private List<Report>? _attachedReports;
+
+    #region UtilProperties
+
     [NotMapped] public int AccessLevel => Roles.Select(r => r.AccessLevel).Max();
-
+    
     [NotMapped] public string FullName => $"{Surname} {Firstname} {MiddleName}";
-
+    
     [NotMapped] public Role PriorityRole => Roles.MaxBy(r => r.AccessLevel)!;
 
     [NotMapped] public List<Role> DescendedSortedRoles => Roles.OrderByDescending(r => r.AccessLevel).ToList();
@@ -53,6 +60,8 @@ public partial class Account : DomainObject
     [NotMapped] public int TotalReports => Reports.Count;
     [NotMapped] public int SentReports => Reports.Count(r => r.ReportState == Report.State.Sent);
     [NotMapped] public int InProgressReports => Reports.Count(r => r.ReportState == Report.State.InProgress);
+
+    #endregion
 
     public override string ToString()
     {
