@@ -39,9 +39,9 @@ public partial class HomeViewModel : ViewModelBase
             WaitTime = 3
         });
 
-        Report report;
-        _reports.Add(
-            report = await _reportService.Send(_authenticator.CurrentAccount!, ReportTitle!, ReportDescription));
+        var report = await _reportService.Send(_authenticator.CurrentAccount!, ReportTitle!, ReportDescription);
+        report.Sender = _authenticator.CurrentAccount!;
+        _reports.Add(report);
         var list = new List<Report>(_reports);
         list.Sort((r1, r2) => r2.ReportDate.CompareTo(r1.ReportDate));
         Reports = new ObservableCollection<Report>(list);
