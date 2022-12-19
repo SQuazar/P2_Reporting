@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Services;
 
-public interface IPaginatedService<T>
+public interface IPaginatedService<T> : IDataService<T>
 {
     Task<IEnumerable<T>> GetPage(int page, int size);
 
