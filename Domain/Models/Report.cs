@@ -10,7 +10,11 @@ namespace Domain.Models;
 [Table("report")]
 public partial class Report : DomainObject
 {
+    #region StaticMembers
+
     public static readonly Report Empty = new() { Sender = Account.Empty, Title = "" };
+
+    #endregion
 
     [ObservableProperty] private Account _sender = null!;
     [ObservableProperty] private int _senderId;
@@ -41,25 +45,14 @@ public partial class Report : DomainObject
         public static readonly State Completed = new("Completed", "Выполнено");
         public static readonly State Invalid = new("Invalid", "Отклонён");
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; }
 
-        public string Localized
-        {
-            get => _localized;
-            set => _localized = value;
-        }
-
-        private string _name;
-        private string _localized;
+        public string Localized { get; }
 
         private State(string name, string localized)
         {
-            _name = name;
-            _localized = localized;
+            Name = name;
+            Localized = localized;
         }
 
         public override string ToString()
